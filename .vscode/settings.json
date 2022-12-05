@@ -1,0 +1,9 @@
+{
+	"cSpell.ignoreWords": ["plateforme"],
+	"workbench.colorCustomizations": {
+		"activityBar.background": "#a8aa0f",
+		"titleBar.activeBackground": "#a8aa0f",
+		"titleBar.activeForeground": "#fff2f2"
+	},
+	"cSpell.words": ["upsert"]
+}
