@@ -18,23 +18,15 @@ async function main() {
 						description:
 							"An authorized feature length documentary about the art and life of beloved illustrator Dave Stevens, creator of The Rocketeer.",
 						country: "USA",
-						images: {
+						media: {
 							create: [
 								{
 									url: "img1",
+									type: "image",
 								},
 								{
 									url: "img2",
-								},
-							],
-						},
-						videos: {
-							create: [
-								{
-									url: "img1",
-								},
-								{
-									url: "img2",
+									type: "video",
 								},
 							],
 						},
@@ -106,23 +98,15 @@ async function main() {
 						description:
 							"Polly Parsons and Amoeba Music are working together to release a recently discovered long-lost Gram Parsons performance on CD and 2LP.",
 						country: "USA",
-						images: {
+						media: {
 							create: [
 								{
 									url: "img1",
+									type: "image",
 								},
 								{
 									url: "img2",
-								},
-							],
-						},
-						videos: {
-							create: [
-								{
-									url: "img1",
-								},
-								{
-									url: "img2",
+									type: "video",
 								},
 							],
 						},
@@ -155,23 +139,15 @@ async function main() {
 						description:
 							"A community platform for justice and action on an overheating planet.",
 						country: "FR",
-						images: {
+						media: {
 							create: [
 								{
 									url: "img1",
+									type: "image",
 								},
 								{
 									url: "img2",
-								},
-							],
-						},
-						videos: {
-							create: [
-								{
-									url: "img1",
-								},
-								{
-									url: "img2",
+									type: "video",
 								},
 							],
 						},

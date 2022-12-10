@@ -28,8 +28,7 @@ model Project {
   title         String
   description   String
   country       String
-  images        Image[]
-  videos        Video[]
+  media         Media[]
   Budget        Float
   categories    Category[]
   rewards       Reward[]
@@ -49,19 +48,14 @@ model Contribution {
   projectId     Int
 }
 
-model Image {
+model Media {
   id        Int     @id @default(autoincrement())
   url       String
+  type      String
   project   Project @relation(fields: [projectId], references: [id])
   projectId Int
 }
 
-model Video {
-  id        Int     @id @default(autoincrement())
-  url       String
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
-}
 
 model Reward {
   id               Int      @id @default(autoincrement())

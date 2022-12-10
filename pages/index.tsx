@@ -14,6 +14,15 @@ interface Users {
 		avatar: string;
 	}[];
 }
+interface Projects {
+	projects: {
+		id: number;
+		title: string;
+		description: string;
+		country: string;
+		Budget: string;
+	}[];
+}
 
 interface FormData {
 	id: number;
@@ -41,7 +50,7 @@ const Home = ({ users }: Users) => {
 	};
 	async function create(data: FormData) {
 		try {
-			fetch("http://localhost:3000/api/users/create", {
+			fetch("http://localhost:3000/api/users", {
 				body: JSON.stringify(data),
 				headers: {
 					"Content-Type": "application/json",
@@ -105,6 +114,7 @@ const Home = ({ users }: Users) => {
 			console.log(error);
 		}
 	}
+
 	const handleSubmit = async (data: FormData) => {
 		try {
 			create(data);
@@ -159,9 +169,9 @@ const Home = ({ users }: Users) => {
 					{users.map((user) => (
 						<div key={user.id}>
 							<div>
-								<div>{user.firstName}</div>
-								<div>{user.lastName}</div>
-								<div>{user.email}</div>
+								<div>firstName: {user.firstName}</div>
+								<div>lastName: {user.lastName}</div>
+								<div>email: {user.email}</div>
 							</div>
 							<button onClick={() => deleteUser(user.id)}>
 								Delete

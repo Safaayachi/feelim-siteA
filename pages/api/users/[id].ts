@@ -16,6 +16,11 @@ export default async function userHandler(
 				where: {
 					id: Number(req.query.id),
 				},
+				include:{
+					projects:true,
+					contributions:true,
+					chats:true
+				}
 			});
 			res.status(200).json(user);
 			break;
