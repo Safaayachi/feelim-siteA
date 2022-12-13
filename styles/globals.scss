@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "base/normalize";
+@import "base/reset";
+@import "base/typography";
+@import "base/fonts";
+@import "base/icon";
+@import "components/scrollbar";
+@import "components/buttons";
+@import "components/inputs";
+

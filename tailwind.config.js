@@ -11,18 +11,19 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: "#4679a6",
-				"primary-tint": "#4b85b8",
-				secondary: "#1a1a1a",
-				"secondary-shade": "#133C2A",
-				dark: "#161616",
-				"dark-tint": "#bdbdbd",
+				primary: "#df3a44",
+				"primary-tint": "#F5EEE6",
+				"primary-shade": "#B9B9AF",
+				secondary: "#262b42",
+				"secondary-shade": "#6c7280",
+				dark: "#040506",
+				"dark-tint": "#D9D9D9",
 				danger: "#D11317",
 			},
 			fontFamily: {
-				cairo: ["Cairo", "sans-serif"],
+				
+				poppins: ["Poppins", "sans-serif"],
 			},
-
 			boxShadow: {
 				"t-sm": "0 -1px 2px 0 rgb(0 0 0 / 0.05)",
 				t: "0 -1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
@@ -1006,4 +1007,3 @@ module.exports = {
 		require("@tailwindcss/line-clamp"),
 	],
 };
-
