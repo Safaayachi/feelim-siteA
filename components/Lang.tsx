@@ -5,8 +5,8 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const Language = () => {
 	const languages = [
-		{ verbose: "french", value: "fr" },
 		{ verbose: "english", value: "en" },
+		{ verbose: "french", value: "fr" },
 	];
 	const router = useRouter();
 	const { pathname, asPath, query, locale } = router;
@@ -21,14 +21,14 @@ const Language = () => {
 		<Fragment>
 			<div
 				onClick={() => {
-					changeLanguage(i18n.language === "fr" ? "en" : "en");
+					changeLanguage(i18n.language === "en" ? "fr" : "en");
 				}}
 				className="flex items-center text-center cursor-pointer gap-2"
 			>
-				{i18n.language === "fr" ? (
-					<span className="fi fi-fr text-xxs"></span>
-				) : (
+				{i18n.language === "en" ? (
 					<span className="fi fi-gb text-xxs"></span>
+				) : (
+					<span className="fi fi-fr text-xxs"></span>
 				)}
 				<div className="text-xs font-bold">{t(`common:language`)}</div>
 			</div>
