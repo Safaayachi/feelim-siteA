@@ -1,0 +1,14 @@
+{
+    "title":"Titre",
+    "description":"Description",
+    "country":"pays", 
+    "budget":"Budget",
+    "categories":"Catégories",
+    "image":"Image",
+    "video":"Video",
+    "level":"Niveau",
+    "value":"Valeur",
+    "quantity":"Quantité",
+    "shipping":"Durée d'expédition"
+ 
+ }

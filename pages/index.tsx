@@ -1,40 +1,46 @@
-import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { prisma } from "../lib/prisma";
-import { useSession, signIn, signOut } from "next-auth/react";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../i18n/next-i18next.config.js";
+import Link from "next/link.js";
+import Image from "next/image.js";
+import React from "react";
+import Layout from "../components/Layout";
 
-const Home = () => {
-	const { data: session, status } = useSession();
-	if (status === "loading") {
-		return <h1>Loading...</h1>;
-	}
-	if (session) {
-		return (
-			<>
-				Signed as {session.user?.email}
-				<button type="button" onClick={() => signOut()}>
-					signOut
-				</button>
-			</>
-		);
-	}
+const Home: NextPage = () => {
+	const { t, i18n } = useTranslation([
+		"home",
+		"common",
+		"button",
+		"auth",
+		"input",
+	]);
 	return (
-		<>
-			Not signed in{" "}
-			<button type="button" onClick={() => signIn()}>
-				signIn
-			</button>
-			<p className="text-3xl font-bold underline text-primary">hello</p>
-			<p className="text-3xl font-bold underline text-primary-tint">hello</p>
-			<p className="text-3xl font-bold underline text-primary-shade">hello</p>
-			<p className="text-3xl font-bold underline text-secondary">hello</p>
-			<p className="text-3xl font-bold underline text-secondary-shade">hello</p>
-			<p className="text-3xl font-bold underline text-dark">hello</p>
-			<p className="text-3xl font-bold underline text-dark-tint">hello</p>
-			<p className="text-3xl font-bold underline text-danger">hello</p>
-		</>
+		<div>
+			<Layout>
+				<section className="relative h-full pt-20 flex flex-row">
+					<div className="relative h-full w-full">
+						<Image
+							alt={"logo"}
+							src={"/images/home.svg"}
+							fill
+							
+						></Image>
+					</div>
+				</section>
+			</Layout>
+		</div>
 	);
 };
-
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["home", "common", "button", "auth", "input"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
 export default Home;

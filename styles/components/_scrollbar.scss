@@ -10,10 +10,10 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	@apply bg-secondary;
+	@apply bg-primary;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	@apply bg-secondary;
+	@apply bg-primary;
 }

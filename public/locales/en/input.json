@@ -1,0 +1,14 @@
+{
+   "title":"Title",
+   "description":"Description",
+   "country":"country", 
+   "budget":"Budget",
+   "categories":"Categories",
+   "image":"Image",
+   "video":"Video",
+   "level":"Level",
+   "value":"Value",
+   "quantity":"Quantity",
+   "shipping":"Shipping Duration"
+
+}
