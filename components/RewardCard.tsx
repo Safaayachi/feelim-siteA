@@ -29,7 +29,7 @@ const RewardCard = () => {
 					</div>
 				</div>
 			</div>
-            <div className="absolute top-0 right-0 bg-primary p-2 shadow-full rounded-tr-md text-sm text-white font-semibold">First Level</div>
+            <div className="absolute top-0 right-0 bg-green-500 p-2 shadow-full rounded-tr-md text-sm text-white font-semibold">First Level</div>
 		</div>
 	);
 };

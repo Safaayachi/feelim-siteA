@@ -44,7 +44,7 @@ const details = () => {
 							</div>
 						</div>
 					</div>
-					<div className="flex flex-row gap-6">
+					<div className="flex md:flex-row flex-col gap-6 ">
 						<div className="flex flex-col gap-4 w-full lg:w-2/3 px-8 py-4">
 							<div className="relative w-full   border border-solid border-dark-tint rounded-md flex flex-col  bg-white p-4">
 								<h1 className="text-sm font-semibold text-secondary">

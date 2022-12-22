@@ -85,7 +85,7 @@ const SideBar = () => {
 								</li>
 							</Link>
 
-							<Link passHref href={"/"}>
+							<Link passHref href={"/contributor/contributions"}>
 								<li className="py-3 text-xs text-secondary-shade rounded-lg bg-transparent font-medium px-2">
 									<div className="flex flex-row gap-2 items-center">
 										<i className="icon-users"></i>
