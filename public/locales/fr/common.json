@@ -2,9 +2,20 @@
     "project":"Projet",
     "target":"Cible",
     "creator":"Créateur",
-    "contributor":"donateur",
+    "contributor":"Donateur",
     "contributions":"Contributions",
     "chats":"Messagerie",
-    "language":"FR"
+    "language":"FR",
+    "create":"créer",
+    "amount":"Montant",
+    "date":"Date",
+    "amount-raised":"Montant amassé",
+    "budget":"Budget",
+    "description":"Description",
+    "analytics":"Analytique",
+    "money-left":"Reste à partir",
+    "total-views":"Vues totales",
+    "new-contributors":"Nouveaux contributeurs",
+    "creation-date":"Date de création"
 
 }

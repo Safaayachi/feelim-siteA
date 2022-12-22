@@ -5,8 +5,13 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { Tab } from "@headlessui/react";
 import ProgressBar from "../../../components/ProgressBar";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../../i18n/next-i18next.config";
 
-const Details = () => {
+const Details: NextPage<{}> = () => {
+	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	return (
 		<div className="bg-primary-tint ">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -44,7 +49,7 @@ const Details = () => {
 												: " text-secondary-shade border-b border-solid border-transparent"
 										}
 									>
-										Contributions
+										{t("common:contributions")}
 									</button>
 								)}
 							</Tab>
@@ -57,7 +62,7 @@ const Details = () => {
 												: " text-secondary-shade border-b border-solid border-transparent"
 										}
 									>
-										Contributors
+										{t("common:contributors")}
 									</button>
 								)}
 							</Tab>
@@ -70,7 +75,7 @@ const Details = () => {
 												: " text-secondary-shade border-b border-solid border-transparent"
 										}
 									>
-										Amount Raised
+										{t("common:amount-raised")}
 									</button>
 								)}
 							</Tab>
@@ -83,7 +88,7 @@ const Details = () => {
 												: " text-secondary-shade border-b border-solid border-transparent"
 										}
 									>
-										Analytics
+										{t("common:analytics")}
 									</button>
 								)}
 							</Tab>
@@ -93,95 +98,9 @@ const Details = () => {
 								<div className="flex justify-center container max-auto px-8">
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
-										</div>
-										<div className="flex text-xs font-medium flex-row justify-around py-4 ">
-											<div>Contributor</div>
-											<div>Amount</div>
-											<div>Date</div>
+											<div>{t("common:contributor")}</div>
+											<div>{t("common:amount")}</div>
+											<div>{t("common:date")}</div>
 										</div>
 									</div>
 								</div>
@@ -190,22 +109,7 @@ const Details = () => {
 								<div className="flex justify-center container max-auto px-8">
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
-											Contributor
-										</div>
-										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
-											Contributor
-										</div>
-										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint ">
-											Contributor
-										</div>
-										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
-											Contributor
-										</div>
-										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
-											Contributor
-										</div>
-										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
-											Contributor
+										{t("common:contributor")}
 										</div>
 									</div>
 								</div>
@@ -215,8 +119,8 @@ const Details = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>Amount Raised</div>
-												<div>Budget</div>
+												<div>{t("common:amount-raised")}</div>
+												<div>{t("common:budget")}</div>
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
@@ -231,8 +135,12 @@ const Details = () => {
 									</div>
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex justify-center py-4  bg-white">
 										<div className="flex flex-col">
-											<div className="text-center text-3xl">30$</div>
-											<div className="text-sm text-secondary-shade">Left to go</div>
+											<div className="text-center text-3xl">
+												30$
+											</div>
+											<div className="text-sm text-secondary-shade">
+											{t("common:money-left")}
+											</div>
 										</div>
 									</div>
 								</div>
@@ -242,8 +150,8 @@ const Details = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>Amount Raised</div>
-												<div>Budget</div>
+												<div>{t("common:amount-raised")}</div>
+												<div>{t("common:budget")}</div>
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
@@ -259,8 +167,8 @@ const Details = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>Contributors</div>
-												<div>Total Views</div>
+												<div>{t("common:contributors")}</div>
+												<div>{t("common:total-views")}</div>
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
@@ -276,8 +184,8 @@ const Details = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>New Contributors</div>
-												<div>Contributions</div>
+												<div>{t("common:new-contributors")}</div>
+												<div>{t("common:contributions")}</div>
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
@@ -299,5 +207,15 @@ const Details = () => {
 		</div>
 	);
 };
-
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["home", "common", "button"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
 export default Details;

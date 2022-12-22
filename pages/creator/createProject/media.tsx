@@ -1,8 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Layout from "../../../components/Layout";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../../i18n/next-i18next.config";
 
-const ProjectMedia = () => {
+const ProjectMedia: NextPage<{}> = () => {
+	const { t } = useTranslation(["common", "home", "button", "input"]);
 	return (
 		<div className="bg-primary-tint">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -13,7 +18,7 @@ const ProjectMedia = () => {
 								htmlFor="image"
 								className=" text-dark font-semibold text-xs"
 							>
-								Image
+								{t("input:image")}
 							</label>
 							<input type="file" className=" w-2/3 " />
 						</div>
@@ -22,7 +27,7 @@ const ProjectMedia = () => {
 								htmlFor="video"
 								className=" text-dark font-semibold text-xs"
 							>
-								Video
+								{t("input:video")}
 							</label>
 							<input type="file" className=" w-2/3 " />
 						</div>
@@ -30,12 +35,12 @@ const ProjectMedia = () => {
 						<div className="flex flex-row justify-between">
 							<Link href={"/creator/createProject"}>
 								<button className="btn btn-primary-outline my-6">
-									Back
+									{t("button:back")}
 								</button>
 							</Link>
 							<Link href={"/creator/createProject/rewards"}>
 								<button className="btn btn-primary my-6">
-									Next
+									{t("button:Next")}
 								</button>
 							</Link>
 						</div>
@@ -46,4 +51,15 @@ const ProjectMedia = () => {
 	);
 };
 
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["common", "home", "button", "input"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
 export default ProjectMedia;

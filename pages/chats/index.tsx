@@ -2,8 +2,18 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "../../components/SearchBar";
-
-const index = () => {
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../i18n/next-i18next.config.js";
+const Index: NextPage<{}> = () => {
+	const { t, i18n } = useTranslation([
+		"home",
+		"common",
+		"button",
+		"auth",
+		"input",
+	]);
 	return (
 		<div className="relative">
 			<div className="flex h-screen">
@@ -123,7 +133,9 @@ const index = () => {
 						<div className="p-4">
 							<form action="" className="flex flex-row gap-4">
 								<input type="text" />
-								<div className="py-2 px-3 cursor-pointer bg-primary rounded-full"><i className="icon-forward text-white "></i></div>
+								<div className="py-2 px-3 cursor-pointer bg-primary rounded-full">
+									<i className="icon-forward text-white "></i>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -133,4 +145,15 @@ const index = () => {
 	);
 };
 
-export default index;
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["home", "common", "button", "auth", "input"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
+export default Index;

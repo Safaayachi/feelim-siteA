@@ -1,8 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Layout from "../../../components/Layout";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../../i18n/next-i18next.config";
 
-const ProjectRewards = () => {
+const ProjectRewards:NextPage<{}> = () => {
+	const { t } = useTranslation(["common", "home", "button", "input"]);
 	return (
 		<div className="bg-primary-tint">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -13,7 +18,7 @@ const ProjectRewards = () => {
 								htmlFor="title"
 								className=" text-dark font-semibold text-xs"
 							>
-								Title
+								{t("input:title")}
 							</label>
 							<input type="text" className="input w-2/3" />
 						</div>
@@ -22,7 +27,7 @@ const ProjectRewards = () => {
 								htmlFor="level"
 								className=" text-dark font-semibold text-xs"
 							>
-								Level
+								{t("input:level")}
 							</label>
 							<input type="text" className="input w-2/3" />
 						</div>
@@ -31,7 +36,7 @@ const ProjectRewards = () => {
 								htmlFor="description"
 								className=" text-dark font-semibold text-xs"
 							>
-								Description
+								{t("input:description")}
 							</label>
 							<textarea className=" w-2/3 " />
 						</div>
@@ -40,7 +45,7 @@ const ProjectRewards = () => {
 								htmlFor="value"
 								className=" text-dark font-semibold text-xs"
 							>
-								Value
+								{t("input:value")}
 							</label>
 							<input type="text" className="input w-2/3" />
 						</div>
@@ -49,7 +54,7 @@ const ProjectRewards = () => {
 								htmlFor="quantity"
 								className=" text-dark font-semibold text-xs"
 							>
-								Quantity
+								{t("input:quantity")}
 							</label>
 							<input type="text" className="input w-2/3 px-6" />
 						</div>
@@ -58,7 +63,7 @@ const ProjectRewards = () => {
 								htmlFor="shipping"
 								className=" text-dark font-semibold text-xs"
 							>
-								Shipping Duration
+								{t("input:shipping")}
 							</label>
 							<input type="text" className="input w-2/3" />
 						</div>
@@ -67,7 +72,7 @@ const ProjectRewards = () => {
 								htmlFor="image"
 								className=" text-dark font-semibold text-xs"
 							>
-								Image
+								{t("input:image")}
 							</label>
 							<input type="file" className=" w-2/3 " />
 						</div>
@@ -75,13 +80,13 @@ const ProjectRewards = () => {
 						<div className="flex flex-row justify-between">
 							<Link href={"/creator/createProject/media"}>
 								<button className="btn btn-primary-outline my-6">
-									Back
+								{t("button:back")}
 								</button>
 							</Link>
 
 							<div>
 								<button className="btn btn-primary my-6">
-									Create
+								{t("button:create")}
 								</button>
 							</div>
 						</div>
@@ -92,4 +97,15 @@ const ProjectRewards = () => {
 	);
 };
 
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["common", "home", "button", "input"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
 export default ProjectRewards;

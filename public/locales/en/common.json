@@ -3,8 +3,21 @@
     "target":"Target",
     "creator":"Creator",
     "contributor":"Contributor",
+    "contributors":"Contributors",
     "contributions":"Contributions",
     "chats":"Chats",
-    "language":"EN"
+    "language":"EN",
+    "create":"Create",
+    "amount":"Amount",
+    "date":"Date",
+    "amount-raised":"Amount Raised",
+    "budget":"Budget",
+    "description":"Description",
+    "analytics":"Analytics",
+    "money-left":"Left to go",
+    "total-views":"Total Views",
+    "new-contributors":"New Contributors",
+    "creation-date":"Creation Date"
+   
 
 }

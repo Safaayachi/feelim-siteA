@@ -1,3 +1,9 @@
 {
-    "get-started":"Commencer"
+	"get-started": "Commencer",
+	"contribute": "Contribuer",
+	"view": "Voir",
+	"delete": "Supprimer",
+	"next": "Suivant",
+	"back": "Avant",
+	"create": "créer"
 }

@@ -4,8 +4,13 @@ import ProjectCard from "../../../components/ProjectCard";
 import SearchBar from "../../../components/SearchBar";
 import { Tab } from "@headlessui/react";
 import Link from "next/link";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../../i18n/next-i18next.config";
 
-const home = () => {
+const Home: NextPage = () => {
+	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	return (
 		<div>
 			<Layout hasFooter={false} hasHeader={false} hasSideBar={true}>
@@ -15,14 +20,14 @@ const home = () => {
 					</div>
 					<div className="flex flex-col gap-2 py-16">
 						<div className="text-4xl font-semibold ">
-							We help people make their
+							{t("home:contributor-home-title1")}
 						</div>
 						<div className="text-4xl font-semibold">
 							{" "}
-							dream come true.
+							{t("home:contributor-home-title2")}
 						</div>
 						<div className="text-xs text-secondary-shade">
-							$47.345.6476 generated around the world.
+							$47.345.6476 {t("home:contributions-amount")}
 						</div>
 					</div>
 					<Tab.Group>
@@ -96,37 +101,30 @@ const home = () => {
 								>
 									<ProjectCard percentage={60} />
 								</Link>
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
 							</Tab.Panel>
 							<Tab.Panel
 								className={
 									'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
 								}
 							>
-								<ProjectCard percentage={20} />
-								<ProjectCard percentage={10} />
-								<ProjectCard percentage={45} />
-								<ProjectCard percentage={90} />
+								<Link
+									passHref
+									href={"/contributor/projects/details"}
+								>
+									<ProjectCard percentage={60} />
+								</Link>
 							</Tab.Panel>
 							<Tab.Panel
 								className={
 									'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
 								}
 							>
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
-								<ProjectCard percentage={60} />
+								<Link
+									passHref
+									href={"/contributor/projects/details"}
+								>
+									<ProjectCard percentage={60} />
+								</Link>
 							</Tab.Panel>
 						</Tab.Panels>
 						<Tab.Panel
@@ -134,9 +132,12 @@ const home = () => {
 								'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
 							}
 						>
-							<div className="text-sm text-secondary-shade">
-								No project created yet !{" "}
-							</div>
+							<Link
+								passHref
+								href={"/contributor/projects/details"}
+							>
+								<ProjectCard percentage={60} />
+							</Link>
 						</Tab.Panel>
 					</Tab.Group>
 				</div>
@@ -144,5 +145,15 @@ const home = () => {
 		</div>
 	);
 };
-
-export default home;
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["home", "common", "button"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
+export default Home;

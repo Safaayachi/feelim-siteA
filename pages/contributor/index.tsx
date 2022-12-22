@@ -1,8 +1,12 @@
 import React from "react";
 import Layout from "../../components/Layout";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../i18n/next-i18next.config";
 
-
-const index = () => {
+const Index: NextPage = () => {
+	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	return (
 		<div>
 			<Layout hasFooter={false} hasHeader={false} hasSideBar={true}>
@@ -11,5 +15,15 @@ const index = () => {
 		</div>
 	);
 };
-
-export default index;
+export const getStaticProps: GetStaticProps = async (context) => {
+	return {
+		props: {
+			...(await serverSideTranslations(
+				context.locale as string,
+				["home", "common", "button"],
+				nextI18NextConfig
+			)),
+		},
+	};
+};
+export default Index;
