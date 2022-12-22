@@ -12,7 +12,7 @@ input[type="number"] {
 input,
 select,
 textarea {
-	@apply w-full text-sm outline-none bg-white placeholder-primary-shade py-3 px-4 bg-transparent border border-solid border-dark-tint rounded-full;
+	@apply w-full text-sm outline-none bg-white placeholder-primary-shade py-2 px-4 bg-transparent border border-solid border-dark-tint rounded-3xl;
 }
 .form-checkbox {
 	@apply text-primary focus:outline-none focus:ring-0 focus:ring-offset-0;

@@ -4,11 +4,14 @@
 	&-primary {
 		@apply bg-primary text-white;
 		&-outline {
-			@apply bg-white text-primary border-primary ;
+			@apply bg-white text-primary border-primary;
 		}
 	}
 	&-secondary {
-		@apply border-secondary-shade border-2 text-primary-shade font-medium;
+		@apply bg-secondary text-white;
+		&-outline {
+			@apply bg-white text-secondary border-secondary;
+		}
 	}
 
 	&-danger {

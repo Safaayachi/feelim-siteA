@@ -5,7 +5,7 @@ const Footer = () => {
 	const { t } = useTranslation(["home"]);
 	return (
 		<footer className="w-full relative bg-secondary text-white">
-			<div className="w-full container sm:mx-auto  lg:px-10 px-6 py-16 lg:pt-10">
+			<div className="w-full container sm:mx-auto  md:px-10 px-6 py-16 lg:pt-10">
 				<div className="grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10">
 					<div>
 						<div>

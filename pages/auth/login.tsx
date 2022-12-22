@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 
-const Home = () => {
+const LogIn = () => {
 	const { data: session, status } = useSession();
 	if (status === "loading") {
 		return <h1>Loading...</h1>;
@@ -39,4 +39,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default LogIn;
