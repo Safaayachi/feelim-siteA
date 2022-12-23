@@ -104,8 +104,9 @@ const SideBar = () => {
 
 			<div className="relative flex h-3/6 flex-row justify-between  py-4">
 				<div className="flex h-fit w-full flex-row justify-between items-center self-end py-4">
-					<div
-						className="flex flex-row gap-2 items-center py-2 px-4 rounded-full hover:bg-primary-tint cursor-pointer "
+					<button
+						className="flex flex-row gap-2 items-center py-2 px-4 rounded-full hover:bg-primary-tint "
+						disabled={settingMenuIsOpen}
 						onClick={() => setModeMenuIsOpen(!modeMenuIsOpen)}
 					>
 						<div className="relative h-8 w-8 ">
@@ -131,16 +132,17 @@ const SideBar = () => {
 								</div>
 							)}
 						</div>
-					</div>
+					</button>
 
-					<div
-						className="cursor-pointer py-2 "
+					<button
+						className=" py-2 "
+						disabled={modeMenuIsOpen}
 						onClick={() => {
 							setSettingMenuIsOpen(!settingMenuIsOpen);
 						}}
 					>
 						<i className="icon-cog font-medium text-primary text-md"></i>
-					</div>
+					</button>
 				</div>
 				{settingMenuIsOpen ? (
 					<div className="absolute pt-28  w-full z-30">
