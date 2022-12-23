@@ -5,7 +5,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../i18n/next-i18next.config.js";
 
-const signIn: NextPage<{}> = () => {
+const SignUp: NextPage<{}> = () => {
 	const { t } = useTranslation(["common", "button", "home", "input", "auth"]);
 	return (
 		<div>
@@ -59,4 +59,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		},
 	};
 };
-export default signIn;
+export default SignUp;
