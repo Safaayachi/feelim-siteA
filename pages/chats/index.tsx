@@ -18,7 +18,7 @@ const Index: NextPage<{}> = () => {
 		<div className="relative">
 			<div className="flex h-screen">
 				<aside className="w-64 h-screen border-solid border border-dark-tint bg-white">
-					<div className="py-8 px-2">
+					<div className="py-3 px-2">
 						<SearchBar />
 					</div>
 					<div className="flex flex-col h-5/6 overflow-y-auto">
@@ -29,7 +29,7 @@ const Index: NextPage<{}> = () => {
 										<div className="relative h-8 w-8 ">
 											<Image
 												alt={"logo"}
-												src={"/images/cover.jpg"}
+												src={"/images/avatar.jpg"}
 												fill
 												objectFit="cover"
 												className="brightness-75 opacity-90 rounded-full"
@@ -42,14 +42,14 @@ const Index: NextPage<{}> = () => {
 						</div>
 					</div>
 				</aside>
-				<main className="overflow-y-scroll h-screen flex-1 bg-primary-tint flex justify-center md:pt-10">
-					<div className="md:w-3/4  xl:w-1/2 w-full border border-solid border-dark-tint rounded-md bg-white flex flex-col  ">
+				<main className="overflow-y-scroll h-screen flex-1 bg-primary-tint flex justify-center ">
+					<div className="w-full border border-solid border-dark-tint rounded-md bg-white flex flex-col  ">
 						<div className="py-3 text-xs  font-medium px-2 cursor-pointer border-b border-solid border-dark-tint">
 							<div className="flex flex-row gap-2 items-center">
 								<div className="relative h-8 w-8 ">
 									<Image
 										alt={"logo"}
-										src={"/images/cover.jpg"}
+										src={"/images/avatar.jpg"}
 										fill
 										objectFit="cover"
 										className="brightness-75 opacity-90 rounded-full"
@@ -58,9 +58,9 @@ const Index: NextPage<{}> = () => {
 								<div>John Doe</div>
 							</div>
 						</div>
-						<div className="flex-1 overflow-y-scroll p-4">
+						<div className="flex-1 overflow-y-scroll p-4 bg-primary-tint">
 							<div className="flex flex-col gap-6">
-								<div className="w-fit p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
+								<div className="max-w-prose p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit. Ex qui numquam culpa
@@ -70,29 +70,29 @@ const Index: NextPage<{}> = () => {
 										voluptate accusamus ipsa?
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
+								<div className="max-w-prose p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit.
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary-tint shadow-md rounded-xl text-secondary text-xs self-end">
+								<div className="w-fit max-w-prose p-4 bg-white shadow-md rounded-xl text-secondary text-xs self-end">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit.
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
+								<div className="w-fit max-w-prose  p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet, Asperiores
 										illum, ex omnis consequuntur voluptate
 										nesciunt nulla deserunt fugit.
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary-tint shadow-md rounded-xl text-secondary text-xs self-end">
+								<div className="w-fit max-w-prose p-4 bg-white shadow-md rounded-xl text-secondary text-xs self-end">
 									<p className=" rounded-full">...</p>
 								</div>
-								<div className="w-fit p-4 bg-primary-tint shadow-md rounded-xl text-secondary text-xs self-end">
+								<div className="w-fit max-w-prose p-4 bg-white shadow-md rounded-xl text-secondary text-xs self-end">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit. Fuga libero omnis ab
@@ -102,27 +102,27 @@ const Index: NextPage<{}> = () => {
 										fuga incidunt quod labore.
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary-tint shadow-md rounded-xl text-secondary text-xs self-end">
+								<div className="w-fit max-w-prose p-4 bg-white shadow-md rounded-xl text-secondary text-xs self-end">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit.
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary-tint shadow-md rounded-xl text-secondary text-xs self-end">
+								<div className="w-fit p-4 bg-white shadow-md rounded-xl text-secondary text-xs self-end">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit. Fuga libero omnis ab
 										in veritatis..
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
+								<div className="w-fit  p-4 bg-primary shadow-md rounded-xl text-white text-xs ">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet, Asperiores
 										illum, ex omnis consequuntur voluptate
 										nesciunt nulla deserunt fugit.
 									</p>
 								</div>
-								<div className="w-fit p-4 bg-primary-tint shadow-md rounded-xl text-secondary text-xs self-end">
+								<div className="w-fit  p-4 bg-white shadow-md rounded-xl text-secondary text-xs self-end">
 									<p className=" rounded-full">
 										Lorem ipsum dolor sit amet consectetur
 										adipisicing elit.
@@ -131,7 +131,7 @@ const Index: NextPage<{}> = () => {
 							</div>
 						</div>
 						<div className="p-4">
-							<form action="" className="flex flex-row gap-4">
+							<form action="" className="flex flex-row gap-4 items-center">
 								<input type="text" />
 								<div className="py-2 px-3 cursor-pointer bg-primary rounded-full">
 									<i className="icon-forward text-white "></i>

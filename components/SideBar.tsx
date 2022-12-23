@@ -150,7 +150,7 @@ const SideBar = () => {
 							<div className="text-xs py-3 px-4 hover:bg-primary-tint cursor-pointer">
 								<Language />
 							</div>
-							<Link passHref href={"/"}>
+							<Link passHref href={"/profile"}>
 								<div
 									className="text-nxs py-2 px-4 hover:bg-primary-tint cursor-pointer font-medium text-secondary "
 									onClick={() => {
