@@ -4,13 +4,16 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import Language from "./Lang";
 
 const SideBar = () => {
 	const router = useRouter();
 	const { t, i18n } = useTranslation(["common", "home"]);
 	const [modeMenuIsOpen, setModeMenuIsOpen] = useState(false);
+	const [settingMenuIsOpen, setSettingMenuIsOpen] = useState(false);
+
 	return (
-		<div className="px-3 flex flex-col h-full relative" >
+		<div className="px-3 flex flex-col h-full relative">
 			<Link passHref href={"/"}>
 				<div className={`relative cursor-pointer py-6 `}>
 					<Image
@@ -116,27 +119,63 @@ const SideBar = () => {
 						</div>
 						<div className="flex flex-col">
 							<div className="font-semibold text-xs">
-								username
+								Safa AYACHI
 							</div>
 							{router.pathname === "/contributor" ? (
 								<div className="font-light text-xs text-start">
 									Contributor
 								</div>
 							) : (
-								<div className="font-light text-xs text-start">
+								<div className="font-light text-nxs text-start">
 									Creator
 								</div>
 							)}
 						</div>
 					</div>
 
-					<div className="cursor-pointer py-2 ">
+					<div
+						className="cursor-pointer py-2 "
+						onClick={() => {
+							setSettingMenuIsOpen(!settingMenuIsOpen);
+						}}
+					>
 						<i className="icon-cog font-medium text-primary text-md"></i>
 					</div>
 				</div>
+				{settingMenuIsOpen ? (
+					<div className="absolute pt-28  w-full z-30">
+						<div className="flex flex-col bg-white rounded-md drop-shadow-xl w-full py-2 border border-solid border-primary-tint">
+							<div className="text-xs py-3 px-4 hover:bg-primary-tint cursor-pointer">
+								<Language />
+							</div>
+							<Link passHref href={"/"}>
+								<div
+									className="text-nxs py-2 px-4 hover:bg-primary-tint cursor-pointer font-medium text-secondary "
+									onClick={() => {
+										setSettingMenuIsOpen(false);
+									}}
+								>
+									Profile
+								</div>
+							</Link>
+							<Link passHref href={"/"}>
+								<div
+									className=" py-2 px-4 text-nxs hover:bg-primary-tint border-t border-solid border-primary-tint cursor-pointer font-medium text-secondary"
+									onClick={() => {
+										setSettingMenuIsOpen(false);
+									}}
+								>
+									Sign Out
+								</div>
+							</Link>
+						</div>
+					</div>
+				) : (
+					<></>
+				)}
 				{modeMenuIsOpen ? (
 					<div className="absolute pt-28  w-full z-30">
-						<div className="flex flex-col bg-white rounded-md drop-shadow-xl gap-4 w-full py-2">
+						<div className="flex flex-col bg-white rounded-md drop-shadow-xl  w-full py-2 border border-solid border-primary-tint">
 							<Link href={"/contributor"}>
 								<div
 									className="flex flex-row gap-2 items-center py-2 px-4 hover:bg-primary-tint cursor-pointer "
@@ -153,12 +192,12 @@ const SideBar = () => {
 											className="brightness-75 opacity-90 rounded-full"
 										></Image>
 									</div>
-									<div className="flex flex-col">
+									<div className="flex flex-col ">
 										<div className="font-semibold text-xs">
-											username
+											Safa AYACHI
 										</div>
-										<div className="font-light text-xs text-start">
-											contributor
+										<div className="font-light text-nxs text-start">
+											Contributor
 										</div>
 									</div>
 								</div>
@@ -181,9 +220,9 @@ const SideBar = () => {
 									</div>
 									<div className="flex flex-col">
 										<div className="font-semibold text-xs">
-											username
+											Safa AYACHI
 										</div>
-										<div className="font-light text-xs text-start">
+										<div className="font-light text-nxs text-start">
 											creator
 										</div>
 									</div>
