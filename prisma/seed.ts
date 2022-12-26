@@ -10,7 +10,6 @@ async function main() {
 			lastName: "db",
 			email: "seed@prisma.com",
 			password: "seed",
-			creator: true,
 			projects: {
 				create: [
 					{
@@ -36,104 +35,20 @@ async function main() {
 							create: [
 								{
 									Name: "Art",
-									subCategories: {
-										create: [
-											{
-												Name: "Dance",
-											},
-											{ Name: "Music" },
-											{ Name: "Design" },
-										],
-									},
 								},
 								{
 									Name: "Games",
-									subCategories: {
-										create: [
-											{
-												Name: "Horror",
-											},
-											{ Name: "FPS" },
-										],
-									},
 								},
 								{
 									Name: "Technology",
-									subCategories: {
-										create: [
-											{
-												Name: "Web Dev",
-											},
-											{ Name: "Big Data" },
-										],
-									},
 								},
 							],
 						},
 
-						comments: {
-							create: [
-								{
-									comment:
-										"it's really an interesting project ",
-								},
-								{ comment: "well done" },
-								{ comment: "Great Job, keep on going!" },
-								{
-									comment:
-										"let's support this project guys it's really good!",
-								},
-								{
-									comment:
-										"I'm really into the idea, well done ",
-								},
-								{ comment: "it's really bad nah" },
-								{ comment: "what is that, terrible idea" },
-							],
-						},
+						
 						moneyRaised: 43,
 					},
-					{
-						title: "Amoeba Presents Newly Discovered Gram Parsons Recordings",
-						description:
-							"Polly Parsons and Amoeba Music are working together to release a recently discovered long-lost Gram Parsons performance on CD and 2LP.",
-						country: "USA",
-						media: {
-							create: [
-								{
-									url: "img1",
-									type: "image",
-								},
-								{
-									url: "img2",
-									type: "video",
-								},
-							],
-						},
-						Budget: 50000,
 
-						comments: {
-							create: [
-								{
-									comment:
-										"it's really an interesting project ",
-								},
-								{ comment: "well done" },
-								{ comment: "Great Job, keep on going!" },
-								{
-									comment:
-										"let's support this project guys it's really good!",
-								},
-								{
-									comment:
-										"I'm really into the idea, well done ",
-								},
-								{ comment: "it's really bad nah" },
-								{ comment: "what is that, terrible idea" },
-							],
-						},
-						moneyRaised: 0,
-					},
 					{
 						title: "Project Mushroom",
 						description:
@@ -166,15 +81,7 @@ async function main() {
 							],
 						},
 
-						comments: {
-							create: [
-								{
-									comment: "woww very interesting topic",
-								},
-								{ comment: "well done" },
-								{ comment: "am impressed" },
-							],
-						},
+						
 						moneyRaised: 0,
 					},
 				],

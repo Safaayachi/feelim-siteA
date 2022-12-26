@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
+var bcrypt = require("bcryptjs");
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	const { method } = req;
-	const { firstName, lastName, email, password, creator, avatar } = req.body;
+	const { firstName, lastName, email, password, avatar } = req.body;
 
 	switch (method) {
 		case "GET":
@@ -19,17 +20,18 @@ export default async function handler(
 			break;
 		case "POST":
 			try {
-				await prisma.user.create({
+				const salt = await bcrypt.genSalt(10);
+				const hashedPassword = await bcrypt.hash(password, salt);
+				const user = await prisma.user.create({
 					data: {
 						firstName,
 						lastName,
 						email,
-						password,
-						creator,
+						password: hashedPassword,
 						avatar,
 					},
 				});
-				res.status(200).json({ message: "user Created" });
+				res.status(200).json(user);
 			} catch (error) {
 				res.status(500).json({ message: "failure" });
 			}

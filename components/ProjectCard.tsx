@@ -1,8 +1,10 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
 import Image from "next/image";
-
-const ProjectCard = ({percentage}) => {
+interface ProjectCardProps {
+	percentage: number;
+}
+const ProjectCard = ({ percentage }: ProjectCardProps) => {
 	return (
 		<div className="relative shadow-md rounded-lg  min-w-1/4 h-full bg-white cursor-pointer">
 			<div className="relative h-52 ">

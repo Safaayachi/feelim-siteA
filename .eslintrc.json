@@ -2,6 +2,16 @@
   "extends": "next",
   "rules": {
     "react/no-unescaped-entities": "off",
-    "react-hooks/rules-of-hooks": "off"
+    "react-hooks/rules-of-hooks": "off",
+    "import/no-anonymous-default-export": ["error", {
+      "allowArray": false,
+      "allowArrowFunction": true,
+      "allowAnonymousClass": false,
+      "allowAnonymousFunction": false,
+      "allowCallExpression": true, // The true value here is for backward compatibility
+      "allowLiteral": false,
+      "allowObject": false
+    }]
   }
+  
 }

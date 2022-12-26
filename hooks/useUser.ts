@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import { fetcher } from "../utils/fetcher";
 
-export function useUsers() {
-	const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API}/users`, fetcher, {
+export function useUsers(id:Number) {
+	const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API}/users/${id}`, fetcher, {
 		revalidateIfStale: false,
 		revalidateOnFocus: false,
 		revalidateOnReconnect: false,

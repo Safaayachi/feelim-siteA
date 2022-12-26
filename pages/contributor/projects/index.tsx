@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 		<div>
 			<Layout hasFooter={false} hasHeader={false} hasSideBar={true}>
 				<div className="container max-auto px-10 py-6 flex flex-col">
-					<div className="md:w-1/3 xl:w-1/4 self-end">
+					<div className="md:w-1/3 xl:w-1/4 w-full self-end">
 						<SearchBar />
 					</div>
 					<div className="flex flex-col gap-2 py-16">

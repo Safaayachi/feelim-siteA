@@ -5,7 +5,6 @@ CREATE TABLE `User` (
     `lastName` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
-    `creator` BOOLEAN NOT NULL DEFAULT true,
     `avatar` VARCHAR(191) NULL,
     `emailVerified` DATETIME(3) NULL,
 
@@ -66,6 +65,7 @@ CREATE TABLE `Comment` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `comment` VARCHAR(191) NOT NULL,
     `projectId` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -76,16 +76,6 @@ CREATE TABLE `Category` (
     `Name` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Category_Name_key`(`Name`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `SubCategory` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `Name` VARCHAR(191) NOT NULL,
-    `categoryId` INTEGER NOT NULL,
-
-    UNIQUE INDEX `SubCategory_Name_key`(`Name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -186,7 +176,7 @@ ALTER TABLE `Reward` ADD CONSTRAINT `Reward_projectId_fkey` FOREIGN KEY (`projec
 ALTER TABLE `Comment` ADD CONSTRAINT `Comment_projectId_fkey` FOREIGN KEY (`projectId`) REFERENCES `Project`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SubCategory` ADD CONSTRAINT `SubCategory_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Comment` ADD CONSTRAINT `Comment_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Message` ADD CONSTRAINT `Message_chatId_fkey` FOREIGN KEY (`chatId`) REFERENCES `Chat`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
