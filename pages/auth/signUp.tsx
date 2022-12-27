@@ -7,11 +7,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../i18n/next-i18next.config.js";
 import { SubmitHandler, useForm } from "react-hook-form";
 type Inputs = {
-	email: string;
-	password: string;
-	firstName: string;
-	lastName: string;
-	avatar: string;
+	email: String;
+	password: String;
+	firstName: String;
+	lastName: String;
+	avatar: String;
 };
 
 const SignUp: NextPage<{}> = () => {

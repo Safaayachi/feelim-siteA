@@ -18,8 +18,8 @@ const Home: NextPage = () => {
 	return (
 		<div>
 			<Layout hasSideBar={false}>
-				<section className="relative h-full w-full flex md:flex-row flex-col md:justify-between container sm:mx-auto md:px-10 px-6">
-					<div className="md:py-72 py-32 w-1/2 flex flex-col gap-8">
+				<section className="relative h-full w-full flex md:flex-row flex-col md:justify-between container sm:mx-auto md:px-16 px-6">
+					<div className="md:py-72 py-32 md:w-1/2 h-1/2 w-full items-center md:items-start flex flex-col gap-8">
 						<div>
 							<div className="md:text-5xl text-3xl font-bold text-secondary">
 								{t("home:home-title1")}
@@ -28,14 +28,14 @@ const Home: NextPage = () => {
 								{t("home:home-title2")}
 							</div>
 						</div>
-						<div className="text-lg font-light ">
+						<div className="text-lg font-light md:text-center">
 							{t("home:home-desc")}
 						</div>
-						<div className="btn btn-primary w-1/2">
+						<div className="btn btn-primary w-fit">
 							{t("button:get-started")}
 						</div>
 					</div>
-					<div className="relative md:w-1/2">
+					<div className="relative  md:w-1/2">
 						<Image
 							alt={"logo"}
 							src={"/images/home.svg"}

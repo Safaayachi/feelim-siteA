@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "../../components/SearchBar";
+import { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -14,37 +15,73 @@ const Index: NextPage<{}> = () => {
 		"auth",
 		"input",
 	]);
+	const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 	return (
-		<div className="relative">
-			<div className="flex h-screen">
-				<aside className="w-64 h-screen border-solid border border-dark-tint bg-white">
-					<div className="py-3 px-2">
-						<SearchBar />
-					</div>
-					<div className="flex flex-col h-5/6 overflow-y-auto">
-						<div className="flex flex-col gap-2">
-							<Link passHref href={"/chats/details"}>
-								<div className="py-3 text-xs  font-medium hover:bg-primary-tint px-2 cursor-pointer">
-									<div className="flex flex-row gap-2 items-center">
-										<div className="relative h-8 w-8 ">
-											<Image
-												alt={"logo"}
-												src={"/images/avatar.jpg"}
-												fill
-												objectFit="cover"
-												className="brightness-75 opacity-90 rounded-full"
-											></Image>
+		<div className="relative ">
+			<div className="h-screen md:flex">
+				<div className="md:hidden">
+					{isSideBarOpen ? (
+						<aside className="w-2/3 absolute z-20 h-screen border-solid border border-dark-tint bg-white">
+							<div className="py-3 px-2">
+								<SearchBar />
+							</div>
+							<div className="flex flex-col h-5/6 overflow-y-auto">
+								<div className="flex flex-col gap-2">
+									<Link passHref href={"/chats/details"}>
+										<div className="py-3 text-xs  font-medium hover:bg-primary-tint px-2 cursor-pointer">
+											<div className="flex flex-row gap-2 items-center">
+												<div className="relative h-8 w-8 ">
+													<Image
+														alt={"logo"}
+														src={
+															"/images/avatar.jpg"
+														}
+														fill
+														objectFit="cover"
+														className="brightness-75 opacity-90 rounded-full"
+													></Image>
+												</div>
+												<div>John Doe</div>
+											</div>
 										</div>
-										<div>John Doe</div>
-									</div>
+									</Link>
 								</div>
-							</Link>
+							</div>
+						</aside>
+					) : (
+						<></>
+					)}
+				</div>
+				<div className="hidden md:flex">
+					<aside className="w-64  h-screen border-solid border border-dark-tint bg-white">
+						<div className="py-3 px-2">
+							<SearchBar />
 						</div>
-					</div>
-				</aside>
+						<div className="flex flex-col h-5/6 overflow-y-auto">
+							<div className="flex flex-col gap-2">
+								<Link passHref href={"/chats/details"}>
+									<div className="py-3 text-xs  font-medium hover:bg-primary-tint px-2 cursor-pointer">
+										<div className="flex flex-row gap-2 items-center">
+											<div className="relative h-8 w-8 ">
+												<Image
+													alt={"logo"}
+													src={"/images/avatar.jpg"}
+													fill
+													objectFit="cover"
+													className="brightness-75 opacity-90 rounded-full"
+												></Image>
+											</div>
+											<div>John Doe</div>
+										</div>
+									</div>
+								</Link>
+							</div>
+						</div>
+					</aside>
+				</div>
 				<main className="overflow-y-scroll h-screen flex-1 bg-primary-tint flex justify-center ">
 					<div className="w-full border border-solid border-dark-tint rounded-md bg-white flex flex-col  ">
-						<div className="py-3 text-xs  font-medium px-2 cursor-pointer border-b border-solid border-dark-tint">
+						<div className=" py-3 text-xs flex justify-between  font-medium px-2 cursor-pointer border-b border-solid border-dark-tint">
 							<div className="flex flex-row gap-2 items-center">
 								<div className="relative h-8 w-8 ">
 									<Image
@@ -57,6 +94,10 @@ const Index: NextPage<{}> = () => {
 								</div>
 								<div>John Doe</div>
 							</div>
+							<i
+								className="icon-box font-medium text-secondary text-xl px-4 md:hidden"
+								onClick={() => setIsSideBarOpen(!isSideBarOpen)}
+							></i>
 						</div>
 						<div className="flex-1 overflow-y-scroll p-4 bg-primary-tint">
 							<div className="flex flex-col gap-6">
@@ -131,7 +172,10 @@ const Index: NextPage<{}> = () => {
 							</div>
 						</div>
 						<div className="p-4">
-							<form action="" className="flex flex-row gap-4 items-center">
+							<form
+								action=""
+								className="flex flex-row gap-4 items-center"
+							>
 								<input type="text" />
 								<div className="py-2 px-3 cursor-pointer bg-primary rounded-full">
 									<i className="icon-forward text-white "></i>

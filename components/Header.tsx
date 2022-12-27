@@ -39,6 +39,14 @@ const Header = () => {
 							</div>
 						</Link>
 					</div>
+					<div className="flex md:hidden flex-row gap-4 items-center text-center text-secondary">
+						<Link passHref href={"/auth/signIn"}>
+							<div className="cursor-pointer w-fit font-bold text-xs  btn btn-primary-outline">
+								{t("auth:login")}
+							</div>
+						</Link>
+						<Language />
+					</div>
 				</nav>
 			</header>
 		</Fragment>

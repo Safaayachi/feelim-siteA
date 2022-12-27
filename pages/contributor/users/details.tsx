@@ -42,7 +42,7 @@ const Details: NextPage = () => {
 							</div>
 						</div>
 					</div>
-					<div className="absolute z-30 bottom-0 px-4 left-0 pb-4">
+					<div className="absolute z-10 bottom-0 px-4 left-0 pb-4">
 						<div className="relative h-32 w-32 drop-shadow-full">
 							<Image
 								alt={"logo"}

@@ -30,8 +30,12 @@ const Details: NextPage<{}> = () => {
 							Project Title
 						</div>
 						<div className="flex flex-row gap-4 text-lg text-secondary">
-							<i className="icon-eye p-2 bg-white rounded-md border border-solid border-dark-tint cursor-pointer"></i>
-							<i className="icon-write p-2 bg-white rounded-md border border-solid border-dark-tint cursor-pointer"></i>
+							<Link passHref href={'/'}>
+								<i className="icon-eye p-2 bg-white rounded-md border border-solid border-dark-tint cursor-pointer"></i>
+							</Link>
+							<Link passHref href={"/creator/projects/update"}>
+								<i className="icon-write p-2 bg-white rounded-md border border-solid border-dark-tint cursor-pointer"></i>
+							</Link>
 						</div>
 					</div>
 					<Tab.Group>
@@ -109,7 +113,7 @@ const Details: NextPage<{}> = () => {
 								<div className="flex justify-center container max-auto px-8">
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
-										{t("common:contributor")}
+											{t("common:contributor")}
 										</div>
 									</div>
 								</div>
@@ -119,7 +123,9 @@ const Details: NextPage<{}> = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>{t("common:amount-raised")}</div>
+												<div>
+													{t("common:amount-raised")}
+												</div>
 												<div>{t("common:budget")}</div>
 											</div>
 											<div className="relative h-4">
@@ -139,7 +145,7 @@ const Details: NextPage<{}> = () => {
 												30$
 											</div>
 											<div className="text-sm text-secondary-shade">
-											{t("common:money-left")}
+												{t("common:money-left")}
 											</div>
 										</div>
 									</div>
@@ -150,7 +156,9 @@ const Details: NextPage<{}> = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>{t("common:amount-raised")}</div>
+												<div>
+													{t("common:amount-raised")}
+												</div>
 												<div>{t("common:budget")}</div>
 											</div>
 											<div className="relative h-4">
@@ -167,8 +175,12 @@ const Details: NextPage<{}> = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>{t("common:contributors")}</div>
-												<div>{t("common:total-views")}</div>
+												<div>
+													{t("common:contributors")}
+												</div>
+												<div>
+													{t("common:total-views")}
+												</div>
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
@@ -184,8 +196,14 @@ const Details: NextPage<{}> = () => {
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex flex-col  bg-white">
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint flex flex-col">
 											<div className="flex flex-row justify-between py-2 font-semibold text-xs text-secondary-shade">
-												<div>{t("common:new-contributors")}</div>
-												<div>{t("common:contributions")}</div>
+												<div>
+													{t(
+														"common:new-contributors"
+													)}
+												</div>
+												<div>
+													{t("common:contributions")}
+												</div>
 											</div>
 											<div className="relative h-4">
 												<ProgressBar

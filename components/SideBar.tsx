@@ -47,14 +47,7 @@ const SideBar = () => {
 								</li>
 							</Link>
 
-							<Link passHref href={"/"}>
-								<li className="py-3 text-xs text-secondary-shade rounded-lg bg-transparent font-medium px-2">
-									<div className="flex flex-row gap-2 items-center">
-										<i className="icon-chart"></i>
-										<div>Analytics</div>
-									</div>
-								</li>
-							</Link>
+							
 							<Link passHref href={"/creator/createProject"}>
 								<li className="py-3 text-xs text-secondary-shade rounded-lg bg-transparent font-medium px-2">
 									<div className="flex flex-row gap-2 items-center">
