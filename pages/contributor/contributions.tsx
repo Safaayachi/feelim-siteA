@@ -2,12 +2,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "../../components/Layout";
+import { GetServerSideProps } from "next";
+import { getToken } from "next-auth/jwt";
 import type { GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../i18n/next-i18next.config";
 
-const Contributions: NextPage = () => {
+const Contributions: NextPage = ({ token }) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	return (
 		<div className="bg-primary-tint ">
@@ -18,6 +20,7 @@ const Contributions: NextPage = () => {
 							<div>{t("common:project")}</div>
 							<div>{t("common:amount")}</div>
 							<div>{t("common:date")}</div>
+							<div>{token.id}</div>
 						</div>
 					</div>
 				</div>
@@ -25,15 +28,13 @@ const Contributions: NextPage = () => {
 		</div>
 	);
 };
-export const getStaticProps: GetStaticProps = async (context) => {
+
+export async function getServerSideProps(context) {
+	const token = await getToken({ req: context.req });
+
 	return {
-		props: {
-			...(await serverSideTranslations(
-				context.locale as string,
-				["common", "button", "home"],
-				nextI18NextConfig
-			)),
-		},
+		props: { token },
+		
 	};
-};
+}
 export default Contributions;

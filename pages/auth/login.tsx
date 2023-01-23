@@ -1,15 +1,19 @@
+import { GetServerSideProps } from "next";
+import { getToken } from "next-auth/jwt";
 import { useSession, signIn, signOut } from "next-auth/react";
-
-const LogIn = () => {
+const LogIn = ({ token }) => {
 	const { data: session, status } = useSession();
+	console.log(token);
 	if (status === "loading") {
 		return <h1>Loading...</h1>;
 	}
-	console.log(session)
+	console.log(session);
 	if (session) {
 		return (
 			<>
-				Signed as {session.user?.email}
+				id:  {token.id}
+				firstName: {token.firstName}
+				lastName: {token.lastName}
 				<button type="button" onClick={() => signOut()}>
 					signOut
 				</button>
@@ -22,9 +26,14 @@ const LogIn = () => {
 			<button type="button" onClick={() => signIn()}>
 				signIn
 			</button>
-			
 		</>
 	);
 };
+export async function getServerSideProps(context) {
+	const token = await getToken({ req: context.req });
 
+	return {
+		props: { token },
+	};
+}
 export default LogIn;

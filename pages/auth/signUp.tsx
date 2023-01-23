@@ -27,7 +27,7 @@ const SignUp: NextPage<{}> = () => {
 	});
 	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
 		try {
-			const res = await fetch("http://localhost:3000/api/users", {
+			const res = await fetch("/api/users", {
 				body: JSON.stringify(formData),
 				headers: {
 					"Content-Type": "application/json",
@@ -53,7 +53,10 @@ const SignUp: NextPage<{}> = () => {
 								type="text"
 								className="input "
 								placeholder="First Name"
-								{...register("firstName")}
+								{...(register("firstName"),
+								{
+									required: "this is error message",
+								})}
 							/>
 							{errors.firstName && (
 								<div className="text-danger text-xxs">

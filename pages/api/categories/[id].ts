@@ -18,7 +18,7 @@ export default async function userHandler(
 				},
 				include: {
 					projects:true,
-					subCategories: true,
+					
 				},
 			});
 			res.status(200).json(category);
