@@ -3,11 +3,16 @@ import Layout from "../../../components/Layout";
 import Link from "next/link";
 import type { GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
+import { getToken } from "next-auth/jwt";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
+import {useUserProjects} from "../../../hooks/useUserProjects"
 
-const ProjectsOverview:NextPage<{}> = () => {
+const ProjectsOverview:NextPage<{}> = ({token}) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
+	const userId = token.id;
+	const projectsFetch = useUserProjects(userId);
+	console.log(projectsFetch);
 	return (
 		<div className="bg-primary-tint ">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -38,15 +43,11 @@ const ProjectsOverview:NextPage<{}> = () => {
 		</div>
 	);
 };
-export const getStaticProps: GetStaticProps = async (context) => {
+export async function getServerSideProps(context) {
+	const token = await getToken({ req: context.req });
+
 	return {
-		props: {
-			...(await serverSideTranslations(
-				context.locale as string,
-				["home", "common", "button"],
-				nextI18NextConfig
-			)),
-		},
+		props: { token },
 	};
-};
+}
 export default ProjectsOverview;
