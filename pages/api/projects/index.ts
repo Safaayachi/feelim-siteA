@@ -6,7 +6,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	const { method } = req;
-	const { userId, title, description, country, Budget } = req.body;
+	const { userId, title, description, country, Budget,categoryId } = req.body;
 
 	switch (method) {
 		case "GET":
@@ -28,6 +28,11 @@ export default async function handler(
 						user: {
 							connect: {
 								id: userId,
+							},
+						},
+						categories:{
+							connect: {
+								id:categoryId,
 							},
 						},
 					},

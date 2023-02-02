@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Layout from "../../../components/Layout";
 import Image from "next/image";
 import { Fragment } from "react";
 import { Tab } from "@headlessui/react";
 import ProgressBar from "../../../components/ProgressBar";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
+import { useProject } from "../../../hooks/useProject";
+import { Router, useRouter } from "next/router";
 
-const Details: NextPage<{}> = () => {
+const Details: NextPage<{ queries: any }> = ({ project }) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
+	const router = useRouter();
+	const { id } = router.query;
+	console.log(project);
+	function calculatePercentage(moneyRaised: any, budget: any) {
+		return (moneyRaised / budget) * 100;
+	}
+	const percentage = calculatePercentage(project.moneyRaised, project.Budget);
+	const rest = project.Budget - project.moneyRaised;
 	return (
 		<div className="bg-primary-tint ">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -27,10 +37,10 @@ const Details: NextPage<{}> = () => {
 					</div>
 					<div className="py-6 flex flex-row justify-between items-center px-4">
 						<div className="text-secondary font-semibold text-lg">
-							Project Title
+							{project.title}
 						</div>
 						<div className="flex flex-row gap-4 text-lg text-secondary">
-							<Link passHref href={'/'}>
+							<Link passHref href={"/"}>
 								<i className="icon-eye p-2 bg-white rounded-md border border-solid border-dark-tint cursor-pointer"></i>
 							</Link>
 							<Link passHref href={"/creator/projects/update"}>
@@ -106,6 +116,29 @@ const Details: NextPage<{}> = () => {
 											<div>{t("common:amount")}</div>
 											<div>{t("common:date")}</div>
 										</div>
+										{project.contributions?.map(
+											(
+												contribution: any,
+												idx: number
+											) => (
+												<div
+													key={idx}
+													className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint"
+												>
+													<div>
+														{
+															contribution.contributorId
+														}
+													</div>
+													<div>
+														{contribution.amount}
+													</div>
+													<div>
+														{t("common:date")}
+													</div>
+												</div>
+											)
+										)}
 									</div>
 								</div>
 							</Tab.Panel>
@@ -115,6 +148,23 @@ const Details: NextPage<{}> = () => {
 										<div className="text-xs font-medium p-4 border-b border-solid border-dark-tint">
 											{t("common:contributor")}
 										</div>
+										{project.contributions?.map(
+											(
+												contribution: any,
+												idx: number
+											) => (
+												<div
+													key={idx}
+													className="flex text-xs font-medium flex-row justify-around py-4 border-b border-solid border-dark-tint"
+												>
+													<div>
+														{
+															contribution.contributorId
+														}
+													</div>
+												</div>
+											)
+										)}
 									</div>
 								</div>
 							</Tab.Panel>
@@ -130,19 +180,21 @@ const Details: NextPage<{}> = () => {
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
-													percentage={70}
+													percentage={percentage}
 												></ProgressBar>
 											</div>
 											<div className="flex flex-row justify-between py-2 font-semibold text-sm text-secondary">
-												<div>150 $</div>
-												<div>180$</div>
+												<div>
+													{project.moneyRaised} $
+												</div>
+												<div>{project.Budget} $</div>
 											</div>
 										</div>
 									</div>
 									<div className="relative w-full lg:w-2/3  border border-solid border-dark-tint rounded-md flex justify-center py-4  bg-white">
 										<div className="flex flex-col">
 											<div className="text-center text-3xl">
-												30$
+												{rest} $
 											</div>
 											<div className="text-sm text-secondary-shade">
 												{t("common:money-left")}
@@ -163,12 +215,14 @@ const Details: NextPage<{}> = () => {
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
-													percentage={70}
+													percentage={percentage}
 												></ProgressBar>
 											</div>
 											<div className="flex flex-row justify-between py-2 font-semibold text-sm text-secondary">
-												<div>150 $</div>
-												<div>180$</div>
+												<div>
+													{project.moneyRaised} $
+												</div>
+												<div>{project.Budget} $</div>
 											</div>
 										</div>
 									</div>
@@ -207,7 +261,7 @@ const Details: NextPage<{}> = () => {
 											</div>
 											<div className="relative h-4">
 												<ProgressBar
-													percentage={10}
+													percentage={percentage}
 												></ProgressBar>
 											</div>
 											<div className="flex flex-row justify-between py-2 font-semibold text-sm text-secondary">
@@ -225,9 +279,26 @@ const Details: NextPage<{}> = () => {
 		</div>
 	);
 };
-export const getStaticProps: GetStaticProps = async (context) => {
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const queries = context.query;
+	console.log(queries.id);
+	const project = await prisma.project.findUnique({
+		where: {
+			id: Number(queries.id),
+		},
+		include: {
+			media: true,
+			categories: true,
+			rewards: true,
+			comments: true,
+			contributions: true,
+		},
+	});
+	console.log(project);
 	return {
 		props: {
+			project,
 			...(await serverSideTranslations(
 				context.locale as string,
 				["home", "common", "button"],

@@ -4,9 +4,9 @@ import Image from "next/image";
 interface ProjectCardProps {
 	percentage: number;
 }
-const ProjectCard = ({ percentage }: ProjectCardProps) => {
+const ProjectCard = ({ project }: ProjectCardProps) => {
 	return (
-		<div className="relative shadow-md rounded-lg  min-w-1/4 h-full bg-white cursor-pointer">
+		<div className="relative shadow-md rounded-lg  w-full h-full bg-white cursor-pointer">
 			<div className="relative h-52 ">
 				<Image
 					alt={"logo"}
@@ -17,13 +17,12 @@ const ProjectCard = ({ percentage }: ProjectCardProps) => {
 				></Image>
 			</div>
 			<div className="h-3/5 p-2 flex flex-col gap-3">
-				<h1 className="font-semibold text-secondary">Project</h1>
+				<h1 className="font-semibold text-secondary">{project.title}</h1>
 				<p className="text-xs font-normal">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Iusto, aspernatur distinctio architecto amet sequi
+				{project.description}
 				</p>
 				<div className="relative h-0.5">
-					<ProgressBar percentage={percentage}></ProgressBar>
+					<ProgressBar percentage={40}></ProgressBar>
 				</div>
 				<div className="flex flex-row justify-between">
 					<div className="text-xs font-medium text-secondary">
@@ -31,7 +30,7 @@ const ProjectCard = ({ percentage }: ProjectCardProps) => {
 					</div>
 					<div className="text-xs font-bold text-secondary">
 						{" "}
-						43,534$
+						{project.Budget}$
 					</div>
 				</div>
 			</div>

@@ -1,16 +1,31 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Layout from "../../../components/Layout";
 import ProjectCard from "../../../components/ProjectCard";
 import SearchBar from "../../../components/SearchBar";
+import { prisma } from "../../../lib/prisma";
 import { Tab } from "@headlessui/react";
 import Link from "next/link";
-import type { GetStaticProps, NextPage } from "next";
+import { useRouter } from "next/router";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
+import { useCategories } from "../../../hooks/useCategories";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ category }) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
+	const router = useRouter();
+	const categoriesFetch = useCategories();
+	const redirect = (categoryId: any) => {
+		router.push(
+			{
+				pathname: "/contributor/projects/",
+				query: { value: categoryId },
+			},
+			"/contributor/projects/"
+		);
+	};
+
 	return (
 		<div>
 			<Layout hasFooter={false} hasHeader={false} hasSideBar={true}>
@@ -36,118 +51,70 @@ const Home: NextPage = () => {
 								"flex flex-row overflow-x-auto gap-4 py-2"
 							}
 						>
-							<Tab as={Fragment}>
-								{({ selected }) => (
-									<button
-										className={
-											selected
-												? "btn btn-primary w-fit"
-												: "btn btn-primary-outline w-fit"
-										}
-									>
-										Design
-									</button>
-								)}
-							</Tab>
-							<Tab as={Fragment}>
-								{({ selected }) => (
-									<button
-										className={
-											selected
-												? "btn btn-primary w-fit"
-												: "btn btn-primary-outline w-fit"
-										}
-									>
-										Gaming
-									</button>
-								)}
-							</Tab>
-							<Tab as={Fragment}>
-								{({ selected }) => (
-									<button
-										className={
-											selected
-												? "btn btn-primary w-fit"
-												: "btn btn-primary-outline w-fit"
-										}
-									>
-										Art
-									</button>
-								)}
-							</Tab>
-							<Tab as={Fragment}>
-								{({ selected }) => (
-									<button
-										className={
-											selected
-												? "btn btn-primary w-fit"
-												: "btn btn-primary-outline w-fit"
-										}
-									>
-										Technologie
-									</button>
-								)}
-							</Tab>
+							{categoriesFetch.data?.map(
+								(category: any, idx: number) => (
+									<Tab key={idx} as={Fragment}>
+										{({ selected }) => (
+											<button
+												className={
+													selected
+														? "btn btn-primary w-fit"
+														: "btn btn-primary-outline w-fit"
+												}
+												onClick={() => {
+													redirect(category.id);
+												}}
+											>
+												{category.Name}
+											</button>
+										)}
+									</Tab>
+								)
+							)}
 						</Tab.List>
-						<Tab.Panels className={"py-8"}>
-							<Tab.Panel
+						<div className={"py-8"}>
+							<div
 								className={
 									'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
 								}
 							>
-								<Link
-									passHref
-									href={"/contributor/projects/details"}
-								>
-									<ProjectCard percentage={60} />
-								</Link>
-							</Tab.Panel>
-							<Tab.Panel
-								className={
-									'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
-								}
-							>
-								<Link
-									passHref
-									href={"/contributor/projects/details"}
-								>
-									<ProjectCard percentage={60} />
-								</Link>
-							</Tab.Panel>
-							<Tab.Panel
-								className={
-									'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
-								}
-							>
-								<Link
-									passHref
-									href={"/contributor/projects/details"}
-								>
-									<ProjectCard percentage={60} />
-								</Link>
-							</Tab.Panel>
-						</Tab.Panels>
-						<Tab.Panel
-							className={
-								'className=" grid lg:grid-cols-4 md:grid-cols-3  gap-8 "'
-							}
-						>
-							<Link
-								passHref
-								href={"/contributor/projects/details"}
-							>
-								<ProjectCard percentage={60} />
-							</Link>
-						</Tab.Panel>
+								<div className="grid grid-cols-3 ">
+									{category.projects.map(
+										(project: any, idx: number) => (
+											<div key={idx}>
+												<ProjectCard
+													project={project}
+												/>
+											</div>
+										)
+									)}
+								</div>
+							</div>
+						</div>
 					</Tab.Group>
 				</div>
 			</Layout>
 		</div>
 	);
 };
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const queries = context.query;
+	let categoryId = 1;
+	if (queries.value) {
+		categoryId = Number(queries.value);
+	}
+
+	const category = await prisma.category.findUnique({
+		where: {
+			id: categoryId,
+		},
+		include: {
+			projects: true,
+		},
+	});
 	return {
 		props: {
+			category,
 			...(await serverSideTranslations(
 				context.locale as string,
 				["home", "common", "button"],

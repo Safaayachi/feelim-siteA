@@ -8,7 +8,10 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
 
-const Details: NextPage = () => {
+const Details: NextPage<{
+	project: any;
+	queries: any;
+  }> = ({ project, queries }) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	return (
 		<div className="bg-primary-tint ">
