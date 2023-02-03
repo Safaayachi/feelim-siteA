@@ -11,8 +11,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
 import { useProject } from "../../../hooks/useProject";
 import { Router, useRouter } from "next/router";
+import { prisma } from "../../../lib/prisma";
 
-const Details: NextPage<{ queries: any }> = ({ project }) => {
+const Details: NextPage<{ project: any }> = ({ project }) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	const router = useRouter();
 	const { id } = router.query;
@@ -40,7 +41,12 @@ const Details: NextPage<{ queries: any }> = ({ project }) => {
 							{project.title}
 						</div>
 						<div className="flex flex-row gap-4 text-lg text-secondary">
-							<Link passHref href={"/"}>
+							<Link passHref href={{
+													pathname: `/contributor/projects/[id]`,
+													query: {
+														id: project.id,
+													},
+												}}>
 								<i className="icon-eye p-2 bg-white rounded-md border border-solid border-dark-tint cursor-pointer"></i>
 							</Link>
 							<Link passHref href={"/creator/projects/update"}>

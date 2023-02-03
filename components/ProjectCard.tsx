@@ -2,7 +2,7 @@ import React from "react";
 import ProgressBar from "./ProgressBar";
 import Image from "next/image";
 interface ProjectCardProps {
-	percentage: number;
+	project: any;
 }
 const ProjectCard = ({ project }: ProjectCardProps) => {
 	return (

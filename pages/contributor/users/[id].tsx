@@ -2,14 +2,20 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../../components/Layout";
-
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
+import { prisma } from "../../../lib/prisma";
+import { Router, useRouter } from "next/router";
 
-const Details: NextPage = () => {
+const Details: NextPage<{
+	user: any;
+}> = ({user}) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
+	const router = useRouter();
+	const { id } = router.query;
+	console.log(user);
 	return (
 		<div className="bg-primary-tint ">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -58,9 +64,23 @@ const Details: NextPage = () => {
 		</div>
 	);
 };
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const queries = context.query;
+	console.log(queries.id);
+	const user = await prisma.user.findUnique({
+		where: {
+			id: Number(queries.id),
+		},
+		include: {
+			projects:true,
+			
+		},
+		
+	});
+	console.log(user);
 	return {
 		props: {
+			user,
 			...(await serverSideTranslations(
 				context.locale as string,
 				["home", "common", "button"],

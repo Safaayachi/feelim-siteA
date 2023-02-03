@@ -8,7 +8,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
 import { useUserProjects } from "../../../hooks/useUserProjects";
 
-const ProjectsOverview: NextPage<{}> = ({ token }) => {
+const ProjectsOverview: NextPage<{token: any}> = ({ token }) => {
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	const userId = token.id;
 	const projectsFetch = useUserProjects(userId);
@@ -56,7 +56,7 @@ const ProjectsOverview: NextPage<{}> = ({ token }) => {
 		</div>
 	);
 };
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context:any) {
 	const token = await getToken({ req: context.req });
 
 	return {

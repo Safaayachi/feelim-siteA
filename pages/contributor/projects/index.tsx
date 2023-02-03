@@ -81,11 +81,19 @@ const Home: NextPage = ({ category }) => {
 								<div className="grid grid-cols-3 ">
 									{category.projects.map(
 										(project: any, idx: number) => (
-											<div key={idx}>
+											<Link
+												href={{
+													pathname: `/contributor/projects/[id]`,
+													query: {
+														id: project.id,
+													},
+												}}
+												key={idx}
+											>
 												<ProjectCard
 													project={project}
 												/>
-											</div>
+											</Link>
 										)
 									)}
 								</div>

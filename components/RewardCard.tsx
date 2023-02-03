@@ -1,8 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+interface RewardCardProps {
+	reward: any;
+}
 
-const RewardCard = () => {
+const RewardCard = ({ reward }: RewardCardProps) => {
 	return (
 		<div className="relative rounded-lg border border-solid border-dark-tint  min-w-1/4 h-fit bg-white cursor-pointer p-4">
 			<div className="relative h-52 ">
