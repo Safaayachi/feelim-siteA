@@ -27,7 +27,7 @@ const SignUp: NextPage<{}> = () => {
 	});
 	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
 		try {
-			const res = await fetch("/api/users", {
+			const res = await fetch("/api/user", {
 				body: JSON.stringify(formData),
 				headers: {
 					"Content-Type": "application/json",

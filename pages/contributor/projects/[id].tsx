@@ -8,14 +8,50 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
 import { Router, useRouter } from "next/router";
-
+import { SubmitHandler, useForm } from "react-hook-form";
+type FormData = {
+	comment: String;
+	userId: Number;
+	projectId: Number;
+};
 const Details: NextPage<{
 	project: any;
 }> = ({ project }) => {
+	const {
+		register,
+		setValue,
+		formState: { errors, isValid },
+		handleSubmit,
+	} = useForm<FormData>({
+		reValidateMode: "onChange",
+		mode: "all",
+	});
+	const onSubmit: SubmitHandler<FormData> = async (formData) => {
+		if (isValid){
+			formData.userId = 2;
+			formData.projectId = project.id;
+			const options = {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				
+				body: JSON.stringify(formData),
+			};
+			try {
+			
+				
+				const res = await fetch("/api/comments", options
+				);
+			} catch (err) {}
+		}
+		
+	};
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	const router = useRouter();
 	const { id } = router.query;
-	console.log(project);
+
 	return (
 		<div className="bg-primary-tint ">
 			<Layout hasFooter={false} hasHeader={false}>
@@ -78,11 +114,16 @@ const Details: NextPage<{
 								</div>
 							</div>
 							<div className="relative w-full   border border-solid border-dark-tint rounded-md flex flex-col  bg-white p-4">
-								<form action="" className="py-4">
+								<form
+									onSubmit={handleSubmit(onSubmit)}
+									className="py-4"
+								>
 									<input
-										type="text"
-										placeholder="write a comment"
+										type="text" 
+	
+										{...register("comment")}
 									/>
+									
 								</form>
 								{project.comments?.map(
 									(comment: any, idx: number) => (
