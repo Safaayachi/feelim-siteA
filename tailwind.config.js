@@ -11,19 +11,20 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: "#df3a44",
+				primary: "#0ac79f",
 				"primary-tint": "#f7f7f6",
-				"primary-shade": "#B9B9AF",
-				secondary: "#262b42",
-				"secondary-shade": "#6c7280",
-				dark: "#040506",
-				"dark-tint": "#e2e9f2",
+				"primary-shade": "#7d8590",
+				secondary: "#27272f",
+				"secondary-shade": "#F2D9D3",
+				"secondary-tint": "#083a33",
+				dark: "#202026",
+				"dark-tint": "#182328",
 				danger: "#D11317",
-				
 			},
 			fontFamily: {
-				
 				poppins: ["Poppins", "sans-serif"],
+				dancingscript: ["Dancing Script", "cursive"],
+				anton: ["Anton", "sans-serif"],
 			},
 			boxShadow: {
 				"t-sm": "0 -1px 2px 0 rgb(0 0 0 / 0.05)",
@@ -32,7 +33,7 @@ module.exports = {
 			},
 			fontSize: {
 				xxs: "0.625rem",
-				nxs:"0.725rem",
+				nxs: "0.725rem",
 			},
 		},
 		screens: {
@@ -245,8 +246,7 @@ module.exports = {
 		},
 		boxShadow: {
 			sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-			DEFAULT:
-				"0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+			DEFAULT: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
 			md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
 			lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
 			xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
@@ -320,8 +320,14 @@ module.exports = {
 				"0 1px 2px rgb(0 0 0 / 0.1)",
 				"0 1px 1px rgb(0 0 0 / 0.06)",
 			],
-			md: ["0 4px 3px rgb(0 0 0 / 0.07)", "0 2px 2px rgb(0 0 0 / 0.06)"],
-			lg: ["0 10px 8px rgb(0 0 0 / 0.04)", "0 4px 3px rgb(0 0 0 / 0.1)"],
+			md: [
+				"0 4px 3px rgb(0 0 0 / 0.07)",
+				"0 2px 2px rgb(0 0 0 / 0.06)",
+			],
+			lg: [
+				"0 10px 8px rgb(0 0 0 / 0.04)",
+				"0 4px 3px rgb(0 0 0 / 0.1)",
+			],
 			xl: [
 				"0 20px 13px rgb(0 0 0 / 0.03)",
 				"0 8px 5px rgb(0 0 0 / 0.08)",
@@ -624,11 +630,13 @@ module.exports = {
 			bounce: {
 				"0%, 100%": {
 					transform: "translateY(-25%)",
-					animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
+					animationTimingFunction:
+						"cubic-bezier(0.8,0,1,1)",
 				},
 				"50%": {
 					transform: "none",
-					animationTimingFunction: "cubic-bezier(0,0,0.2,1)",
+					animationTimingFunction:
+						"cubic-bezier(0,0,0.2,1)",
 				},
 			},
 		},
@@ -909,8 +917,7 @@ module.exports = {
 		transitionProperty: {
 			none: "none",
 			all: "all",
-			DEFAULT:
-				"color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
+			DEFAULT: "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
 			colors: "color, background-color, border-color, text-decoration-color, fill, stroke",
 			opacity: "opacity",
 			shadow: "box-shadow",

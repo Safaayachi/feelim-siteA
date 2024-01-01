@@ -18,90 +18,30 @@ model User {
   password      String
   avatar        String?
   emailVerified DateTime?
-  projects      Project[]
-  contributions Contribution[]
-  chats         Chat[]
+  isAdmin       Boolean
+  lists         MovieList[]
   accounts      Account[]
   sessions      Session[]
-  comments      Comment[]
+  
 }
 
-model Project {
-  id            Int            @id @default(autoincrement())
-  title         String
-  description   String
-  country       String
-  media         Media[]
-  Budget        Float
-  categories    Category[]
-  rewards       Reward[]
-  comments      Comment[]
-  contributions Contribution[]
-  moneyRaised   Float          @default(0)
-  user          User           @relation(fields: [creatorId], references: [id])
-  creatorId     Int
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  director    String?
+  duration    Int?     
+  list_id     Int
+  list        MovieList @relation(fields: [list_id], references: [id])
 }
 
-model Contribution {
-  id            Int     @id @default(autoincrement())
-  amount        Float
-  user          User    @relation(fields: [contributorId], references: [id])
-  contributorId Int
-  project       Project @relation(fields: [projectId], references: [id])
-  projectId     Int
-}
-
-model Media {
-  id        Int     @id @default(autoincrement())
-  url       String
-  type      String
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
-}
-
-model Reward {
-  id               Int      @id @default(autoincrement())
-  title            String
-  level            Int
-  description      String
-  image            String
-  value            Float
-  quantityLimited  Boolean  @default(false)
-  shippingDuration DateTime
-  project          Project  @relation(fields: [projectId], references: [id])
-  projectId        Int
-}
-
-model Comment {
-  id        Int     @id @default(autoincrement())
-  comment   String
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
-  user      User    @relation(fields: [userId], references: [id])
-  userId    Int
-}
-
-model Category {
-  id       Int       @id @default(autoincrement())
-  Name     String    @unique
-  projects Project[]
-}
-
-model Chat {
-  id       Int       @id @default(autoincrement())
-  messages Message[]
-  users    User[]
-}
-
-model Message {
-  id           Int      @id @default(autoincrement())
-  message      String
-  creationDate DateTime @default(now())
-  seen         Boolean  @default(false)
-  senderId     Int
-  receiverId   Int
-  chatId       Int
-  chat         Chat     @relation(fields: [chatId], references: [id])
+model MovieList {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  ownerId     Int
+  owner       User     @relation(fields: [ownerId], references: [id])
+  movies      Movie[]  
 }
 
 model Account {

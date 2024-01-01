@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Head from "next/head";
 import Link from "next/link";
 import Layout from "../../../components/Layout";
 import RewardCard from "../../../components/RewardCard";
@@ -8,45 +9,32 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../../i18n/next-i18next.config";
 import { Router, useRouter } from "next/router";
-import { SubmitHandler, useForm } from "react-hook-form";
-type FormData = {
+import { prisma } from "../../../lib/prisma";
+import { useState } from "react";
+import { Formik, Form, Field } from "formik";
+interface FormData {
 	comment: String;
+}
+interface props {
 	userId: Number;
 	projectId: Number;
-};
+}
 const Details: NextPage<{
 	project: any;
 }> = ({ project }) => {
-	const {
-		register,
-		setValue,
-		formState: { errors, isValid },
-		handleSubmit,
-	} = useForm<FormData>({
-		reValidateMode: "onChange",
-		mode: "all",
-	});
-	const onSubmit: SubmitHandler<FormData> = async (formData) => {
-		if (isValid){
-			formData.userId = 2;
-			formData.projectId = project.id;
-			const options = {
+	const handleSubmit = async (data: FormData) => {
+		const userId = 1;
+		const projectId = project.id;
+		try{
+			const res = await fetch("/api/comments", {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				
-				body: JSON.stringify(formData),
-			};
-			try {
-			
-				
-				const res = await fetch("/api/comments", options
-				);
-			} catch (err) {}
-		}
-		
+				body: JSON.stringify({ ...data, userId, projectId }),
+			});
+		}catch(err){}
 	};
 	const { t, i18n } = useTranslation(["home", "common", "button"]);
 	const router = useRouter();
@@ -114,17 +102,23 @@ const Details: NextPage<{
 								</div>
 							</div>
 							<div className="relative w-full   border border-solid border-dark-tint rounded-md flex flex-col  bg-white p-4">
-								<form
-									onSubmit={handleSubmit(onSubmit)}
-									className="py-4"
+								<Formik
+									initialValues={{ comment: "" }}
+									onSubmit={handleSubmit}
 								>
-									<input
-										type="text" 
-	
-										{...register("comment")}
-									/>
-									
-								</form>
+									{() => (
+										<Form className="py-4">
+											<Field
+												type="text"
+												name="comment"
+												id="comment"
+											/>
+
+											<button type="submit"></button>
+										</Form>
+									)}
+								</Formik>
+
 								{project.comments?.map(
 									(comment: any, idx: number) => (
 										<div

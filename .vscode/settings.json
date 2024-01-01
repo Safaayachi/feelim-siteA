@@ -5,7 +5,7 @@
 		"titleBar.activeBackground": "#043e29",
 		"titleBar.activeForeground": "#fff2f2"
 	},
-	"cSpell.words": ["propos", "upsert"],
+	"cSpell.words": ["formik", "propos", "upsert"],
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -11,4 +11,4 @@ const App = ({ Component, pageProps }: AppProps) => (
 	</SessionProvider>
 );
 
-export default appWithTranslation(App, nextI18NextConfig);
+export default appWithTranslation(App);

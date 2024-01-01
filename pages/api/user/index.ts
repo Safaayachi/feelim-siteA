@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
-var bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -15,13 +15,22 @@ export default async function handler(
 				const users = await prisma.user.findMany();
 				res.status(200).json(users);
 			} catch (error) {
-				res.status(500).json({ message: "failure" });
+				console.error("Error fetching users:", error);
+				res.status(500).json({
+					message: "Internal Server Error",
+				});
 			}
 			break;
 		case "POST":
 			try {
+				// Validate input fields (example: check if required fields are present)
+
 				const salt = await bcrypt.genSalt(10);
-				const hashedPassword = await bcrypt.hash(password, salt);
+				const hashedPassword = await bcrypt.hash(
+					password,
+					salt
+				);
+
 				const user = await prisma.user.create({
 					data: {
 						firstName,
@@ -29,15 +38,27 @@ export default async function handler(
 						email,
 						password: hashedPassword,
 						avatar,
+						isAdmin: false, // Provide a default value
 					},
 				});
-				res.status(200).json(user);
+
+				res.status(200).json({
+					status: "success",
+					data: user,
+				});
 			} catch (error) {
-				res.status(500).json({ message: "failure" });
+				console.error("Error creating user:", error);
+				res.status(500).json({
+					status: "error",
+					message: "Internal Server Error",
+				});
 			}
 			break;
 		default:
 			res.setHeader("Allow", ["GET", "POST"]);
-			res.status(405).end(`Method ${method} Not Allowed`);
+			res.status(405).json({
+				status: "error",
+				message: `Method ${method} Not Allowed`,
+			});
 	}
 }

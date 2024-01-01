@@ -1,30 +1,37 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	const { method } = req;
-	const { Name } = req.body;
+	const { title, description, ownerId } = req.body;
 
 	switch (method) {
 		case "GET":
 			try {
-				const categories = await prisma.category.findMany();
-				res.status(200).json(categories);
+				const lists = await prisma.movieList.findMany();
+				res.status(200).json(lists);
 			} catch (error) {
 				res.status(500).json({ message: "failure" });
 			}
 			break;
 		case "POST":
 			try {
-				await prisma.category.create({
+				const list = await prisma.movieList.create({
 					data: {
-						Name,
+						title,
+						description,
+
+						owner: {
+							connect: {
+								id: ownerId,
+							},
+						},
 					},
 				});
-				res.status(200).json({ message: "category Created" });
+				res.status(200).json(list);
 			} catch (error) {
 				res.status(500).json({ message: "failure" });
 			}

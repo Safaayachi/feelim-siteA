@@ -8,45 +8,44 @@ export default async function userHandler(
 		query: { id },
 		method,
 	} = req;
-	const { title, description, country, Budget } = req.body;
+	const { title, description, ownerId } = req.body;
 	switch (method) {
 		case "GET":
-			// Get project by Id
-			const project = await prisma.project.findUnique({
+			// Get movieList  by Id
+			const list = await prisma.movieList.findUnique({
 				where: {
 					id: Number(req.query.id),
 				},
 				include: {
-					media: true,
-					categories: true,
-					rewards: true,
-					comments: true,
-					user: true,
-					contributions: true,
+					movies: true,
+					owner: true,
 				},
 			});
-			res.status(200).json(project);
+			res.status(200).json(list);
 			break;
 		case "PUT":
-			// Update project data
-			await prisma.project.update({
+			// Update movieList  data
+			await prisma.movieList.update({
 				where: { id: Number(req.query.id) },
 				data: {
 					title,
 					description,
-					country,
-					Budget,
+					owner: {
+						connect: {
+							id: ownerId,
+						},
+					},
 				},
 			});
-			res.status(200).json("project updated successfully");
+			res.status(200).json("movieList updated successfully");
 			break;
 		case "DELETE":
-			await prisma.project.delete({
+			await prisma.movieList.delete({
 				where: {
 					id: Number(req.query.id),
 				},
 			});
-			res.status(200).json("project deleted successfully");
+			res.status(200).json("movieList  deleted successfully");
 			break;
 		default:
 			res.setHeader("Allow", ["GET", "PUT", "DELETE"]);
