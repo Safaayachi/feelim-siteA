@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../lib/prisma";
+import type { NextApiRequest, NextApiResponse } from "next";
 import CredentialsProvider from "next-auth/providers/credentials";
 var bcrypt = require("bcryptjs");
 type Credentials = {
@@ -10,8 +11,7 @@ type Credentials = {
 	password: String;
 };
 
-export default async function auth(req, res) {
-
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 	return NextAuth(req, res, {
 		adapter: PrismaAdapter(prisma),
 		providers: [
@@ -33,29 +33,34 @@ export default async function auth(req, res) {
 						type: "text",
 						placeholder: "email",
 					},
-					password: { label: "Password", type: "password" },
+					password: {
+						label: "Password",
+						type: "password",
+					},
 				},
 				async authorize(credentials: Credentials, req) {
-					const user = await prisma.user.findFirst({
-						where: {
-							email: credentials.email,
-						},
-						select: {
-							id: true,
-							firstName: true,
-							lastName: true,
-							password: true,
-							email: true,
-						},
-					});
+					const user =
+						await prisma.user.findFirst({
+							where: {
+								email: credentials.email,
+							},
+							select: {
+								id: true,
+								firstName: true,
+								lastName: true,
+								password: true,
+								email: true,
+							},
+						});
 
 					if (!user) {
 						return null;
 					}
-					const passwordMatch = await bcrypt.compare(
-						credentials.password,
-						user.password
-					);
+					const passwordMatch =
+						await bcrypt.compare(
+							credentials.password,
+							user.password
+						);
 
 					if (!passwordMatch) {
 						return null;
@@ -74,12 +79,19 @@ export default async function auth(req, res) {
 		pages: {},
 
 		callbacks: {
-			async jwt({ token, user, account, profile, isNewUser }) {
-				const existingUser = await prisma.user.findUnique({
-					where: {
-						email: token.email!,
-					},
-				});
+			async jwt({
+				token,
+				user,
+				account,
+				profile,
+				isNewUser,
+			}) {
+				const existingUser =
+					await prisma.user.findUnique({
+						where: {
+							email: token.email!,
+						},
+					});
 
 				return { ...existingUser, ...token };
 			},

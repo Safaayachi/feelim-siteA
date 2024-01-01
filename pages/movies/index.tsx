@@ -30,10 +30,10 @@ const Search: NextPage<{}> = () => {
 
 		setActive(active - 1);
 	};
-
 	const handleSubmit = async (data: Inputs) => {
 		try {
-			const res = await fetch("/api/projects", {
+			console.log("Form Data:", data);
+			const res = await fetch("/api/openai", {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
@@ -43,11 +43,10 @@ const Search: NextPage<{}> = () => {
 			});
 
 			if (res.ok) {
-				const { id } = await res.json();
-				router.push(`/projects/${id}`);
+				console.log("API Response:", res);
 			}
 		} catch (err) {
-			console.error(err);
+			console.error("Error:", err);
 		}
 	};
 
@@ -164,6 +163,7 @@ const Search: NextPage<{}> = () => {
 											type="text"
 											className="bg-shade px-4 text-white focus:outline-primary font-poppins"
 											placeholder="Type anything"
+											name="text"
 										/>
 										<button
 											type="submit"

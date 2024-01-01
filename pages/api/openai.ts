@@ -1,7 +1,7 @@
+import axios from "axios";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
-
 dotenv.config();
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
