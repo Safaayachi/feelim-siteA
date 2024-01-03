@@ -80,7 +80,7 @@ function extractMovies(output: string): string[] {
 		// Ensure the expected structure is present
 		if (parsedOutput && parsedOutput.movies) {
 			const movies = parsedOutput.movies.map(
-				(movie, index) => `${index + 1}. ${movie}`
+				(movie, index) => ` ${movie}`
 			);
 
 			return movies;
