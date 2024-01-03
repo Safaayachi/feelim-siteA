@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Fragment } from "react";
 import { useTranslation } from "next-i18next";
-import Language from "./Lang";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Header = () => {
 	const { t } = useTranslation(["home", "auth"]);
 	const [isScrolled, setIsScrolled] = useState(false);
+	const { data: session } = useSession();
+	const [userData, setUserData] = useState(null);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -21,6 +22,29 @@ const Header = () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+
+	useEffect(() => {
+		// Fetch user data based on the session email when session changes
+		const fetchUserData = async () => {
+			if (session?.user?.email) {
+				try {
+					const response = await fetch(
+						`/api/user?email=${session.user.email}`
+					);
+					const userData = await response.json();
+					setUserData(userData);
+				} catch (error) {
+					console.error(
+						"Error fetching user data:",
+						error
+					);
+				}
+			}
+		};
+
+		fetchUserData();
+	}, [session]);
+
 	return (
 		<Fragment>
 			<header
@@ -47,19 +71,29 @@ const Header = () => {
 								About
 							</div>
 						</Link>
-
-						<Link passHref href="/SignIn">
-							<div className=" items-center justify-center hidden">
-								<div className="h-8 w-full rounded-full bg-gradient-to-r from-primary to-secondary-tint p-0.5">
-									<div className="flex h-full w-full items-center justify-center rounded-full bg-black back p-2 px-4">
-										<h1 className="text-xxs font-black text-white">
-											Sign
-											In
-										</h1>
-									</div>
+						{session ? (
+							// If user is signed in, show user's name and sign-out button
+							<div className="flex items-center">
+								<div
+									className="cursor-pointer w-full font-semibold text-xs"
+									onClick={() =>
+										signOut()
+									}
+								>
+									Sign Out
 								</div>
 							</div>
-						</Link>
+						) : (
+							// If user is not signed in, show sign-in button
+							<div
+								className="cursor-pointer w-full font-semibold text-xs"
+								onClick={() =>
+									signIn()
+								}
+							>
+								Sign In
+							</div>
+						)}
 					</div>
 				</nav>
 			</header>

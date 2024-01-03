@@ -1,114 +1,194 @@
 import React from "react";
 import Layout from "../../components/Layout";
 import { useRouter } from "next/router";
-import type { GetStaticProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../i18n/next-i18next.config.js";
 import { SubmitHandler, useForm } from "react-hook-form";
+import bcrypt from "bcryptjs";
+
 type Inputs = {
-	email: String;
-	password: String;
-	firstName: String;
-	lastName: String;
-	avatar: String;
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	avatar: string;
 };
 
 const SignUp: NextPage<{}> = () => {
-	const { t } = useTranslation(["common", "button", "home", "input", "auth"]);
+	const { t } = useTranslation([
+		"common",
+		"button",
+		"home",
+		"input",
+		"auth",
+	]);
 	const router = useRouter();
 	const {
 		register,
-		formState: { errors, isValid },
+		formState: { errors },
 		handleSubmit,
 	} = useForm<Inputs>({
 		reValidateMode: "onChange",
 		mode: "all",
 	});
+
 	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
 		try {
+			// Validate input fields
+			const { email, password, firstName, lastName } =
+				formData;
+
+			if (!email || !password || !firstName || !lastName) {
+				console.error("Missing required fields");
+				return;
+			}
+
+			const salt = await bcrypt.genSalt(10);
+			const hashedPassword = await bcrypt.hash(
+				password,
+				salt
+			);
+
 			const res = await fetch("/api/user", {
-				body: JSON.stringify(formData),
+				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				method: "POST",
+				body: JSON.stringify({
+					firstName,
+					lastName,
+					email,
+					password: hashedPassword,
+					avatar: formData.avatar || "", // Use provided avatar or default to an empty string
+					isAdmin: false, // Provide a default value
+				}),
 			});
+
 			const data = await res.json();
-			if (data) {
-				router.push("/auth/signIn");
+
+			if (res.ok) {
+				console.log("User successfully created:", data);
+				router.push("/");
+			} else {
+				console.error("Failed to create user:", data);
 			}
-		} catch (err) {}
+		} catch (err) {
+			console.error("Error submitting form:", err);
+		}
 	};
+
 	return (
 		<div>
 			<Layout>
-				<section className=" flex justify-center py-32  min-h-screen w-full md:bg-primary-tint">
+				<section className="flex justify-center py-32 min-h-screen bg-black w-full">
 					<form
-						onSubmit={handleSubmit(onSubmit)}
-						className="relative w-full lg:w-1/3 md:w-1/2  md:shadow-md p-8  flex flex-col gap-4 bg-white rounded-md px-8"
+						onSubmit={handleSubmit(
+							onSubmit
+						)}
+						className="relative w-full lg:w-1/3 md:w-1/2 md:shadow-md p-8 flex flex-col gap-4 bg-dark opacity-90 rounded-md px-8"
 					>
 						<div className="flex flex-col gap-4">
 							<input
 								type="text"
-								className="input "
+								className="input input bg-primary-tint focus:outline-primary outline-none"
 								placeholder="First Name"
-								{...(register("firstName"),
-								{
-									required: "this is error message",
-								})}
+								{...register(
+									"firstName",
+									{
+										required: "This field is required",
+									}
+								)}
 							/>
 							{errors.firstName && (
 								<div className="text-danger text-xxs">
-									wrong
+									{
+										errors
+											.firstName
+											.message
+									}
 								</div>
 							)}
 							<input
 								type="text"
-								className="input"
+								className="input bg-primary-tint focus:outline-primary outline-none"
 								placeholder="Last Name"
-								{...register("lastName")}
+								{...register(
+									"lastName"
+								)}
 							/>
 							{errors.lastName && (
 								<div className="text-danger text-xxs">
-									wrong
+									{
+										errors
+											.lastName
+											.message
+									}
 								</div>
 							)}
 							<input
 								type="text"
-								className="input"
+								className="input input bg-primary-tint focus:outline-primary outline-none"
 								placeholder="Email"
-								{...register("email")}
+								{...register(
+									"email",
+									{
+										required: "This field is required",
+									}
+								)}
 							/>
 							{errors.email && (
 								<div className="text-danger text-xxs">
-									wrong
+									{
+										errors
+											.email
+											.message
+									}
 								</div>
 							)}
 							<input
 								type="password"
-								className="input"
+								className="input input bg-primary-tint focus:outline-primary outline-none"
 								placeholder="Password"
-								{...register("password")}
+								{...register(
+									"password",
+									{
+										required: "This field is required",
+									}
+								)}
 							/>
 							{errors.password && (
 								<div className="text-danger text-xxs">
-									wrong
+									{
+										errors
+											.password
+											.message
+									}
 								</div>
 							)}
 							<input
 								type="text"
-								className="input"
+								className="input hidden"
 								placeholder="Avatar"
-								{...register("avatar")}
+								{...register(
+									"avatar"
+								)}
 							/>
-							{errors.password && (
+							{errors.avatar && (
 								<div className="text-danger text-xxs">
-									wrong
+									{
+										errors
+											.avatar
+											.message
+									}
 								</div>
 							)}
 						</div>
-						<button type="submit" className="btn btn-secondary ">
+						<button
+							type="submit"
+							className="btn btn-primary"
+						>
 							Sign Up
 						</button>
 					</form>
@@ -117,6 +197,7 @@ const SignUp: NextPage<{}> = () => {
 		</div>
 	);
 };
+
 export const getStaticProps: GetStaticProps = async (context) => {
 	return {
 		props: {
@@ -128,4 +209,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		},
 	};
 };
+
 export default SignUp;
